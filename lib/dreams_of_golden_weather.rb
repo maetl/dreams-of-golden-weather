@@ -1,4 +1,5 @@
 require "chunky_png"
+require "calyx"
 
 require "book"
 require "document"
