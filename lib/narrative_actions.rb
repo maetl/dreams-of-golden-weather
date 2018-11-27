@@ -10,6 +10,6 @@ class NarrativeActions
   end
 
   def self.generate(action_name)
-    @@registry[action_name].call
+    @@registry[action_name].call unless @@registry[action_name].nil?
   end
 end
