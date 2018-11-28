@@ -36,3 +36,10 @@ task :socks do
     puts NarrativeActions.generate(action)
   end
 end
+
+namespace :sentences do
+  task :extract do
+    sentences = ExtractCorpora.new
+    sentences.extract
+  end
+end

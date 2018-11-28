@@ -1,3 +1,4 @@
+require "punkt-segmenter"
 require "chunky_png"
 require "calyx"
 
@@ -7,4 +8,7 @@ require "plan"
 require "narrative"
 require "narrative_actions"
 require "actions"
+require "markov"
 require "dithered_image"
+require "extract_corpora"
+require "corpora"
