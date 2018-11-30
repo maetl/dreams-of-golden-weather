@@ -33,5 +33,6 @@ NarrativeActions.new(:incident_at_centre) do |context|
     computing_1 Corpora.computing.generate
     computing_2 Corpora.computing.generate
   end
-  grammar.generate(context)
+
+  Section.new(context, grammar.generate(context), :technician)
 end

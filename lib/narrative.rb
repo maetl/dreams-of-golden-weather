@@ -33,9 +33,8 @@ class Narrative
     context = StoryEntities.map
     plan = @plan.generate(Actions)
 
-    plan.compact.map do |action|
-      text = NarrativeActions.generate(action, context)
-      Section.new(context, text)
-    end
+    plan.map do |action|
+      NarrativeActions.generate(action, context)
+    end.compact
   end
 end

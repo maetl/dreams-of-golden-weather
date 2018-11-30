@@ -15,5 +15,5 @@ NarrativeActions.new(:print_spool_mayhem) do |context|
     start paragraphs.join("\n\n")
   end
 
-  grammar.generate(context)
+  Section.new(context, grammar.generate(context), :computer)
 end

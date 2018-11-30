@@ -27,5 +27,6 @@ NarrativeActions.new(:callout_to_centre) do |context|
     stranger "much more strange", "far stranger"
     non_explanation Corpora.computing_oeuvre.generate
   end
-  grammar.generate(context)
+
+  Section.new(context, grammar.generate(context), :technician)
 end

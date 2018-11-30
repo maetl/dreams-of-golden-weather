@@ -87,12 +87,22 @@ class Document
     end
   end
 
+  def pov_font(pov)
+    if pov == :computer
+      "Nouveau IBM"
+    else
+      "Noto Serif"
+    end
+  end
+
   def render_body
     start_new_page(margin: 72)
 
-    font("Noto Serif") do
-      @narrative.sections.each do |section|
+    @narrative.sections.each do |section|
+      font(pov_font(section.pov)) do
         text(section.text)
+      end
+      font("Noto Serif") do
         text("\n\n§\n\n", align: :center)
       end
     end
