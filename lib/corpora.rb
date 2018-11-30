@@ -10,6 +10,10 @@ module Corpora
     self.load_markov_text("computing")
   end
 
+  def self.oeuvre
+    self.load_markov_text("oeuvre")
+  end
+
   def self.memoir
     self.load_markov_text("memoir")
   end
@@ -26,10 +30,16 @@ module Corpora
     self.load_markov_text("ephemera")
   end
 
-  def self.computing_ephemera
-    collection = self.load_sentences("computing").concat(self.load_sentences("ephemera"))
-    @@data["computing_ephemera"] = collection
-    self.load_markov_text("computing_ephemera")
+  def self.computing_oeuvre
+    collection = self.load_sentences("computing").concat(self.load_sentences("oeuvre"))
+    @@data["computing_oeuvre"] = collection
+    self.load_markov_text("computing_oeuvre")
+  end
+
+  def self.muturangi_pulp
+    collection = self.load_sentences("muturangi").concat(self.load_sentences("pulp"))
+    @@data["muturangi_pulp"] = collection
+    self.load_markov_text("muturangi_pulp")
   end
 
   def self.load_sentences(corpus)

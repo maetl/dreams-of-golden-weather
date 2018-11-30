@@ -25,7 +25,7 @@ NarrativeActions.new(:callout_to_centre) do
     lately "And lately {problems} that are {stranger}"
     problems "problems", "things"
     stranger "much more strange", "far stranger"
-    non_explanation Corpora.computing_ephemera.generate
+    non_explanation Corpora.computing_oeuvre.generate
   end
-  grammar.generate(technician: "Wilson", computer: "WEKA")
+  grammar.generate(StoryEntities.map)
 end

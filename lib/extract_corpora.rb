@@ -15,7 +15,7 @@ class ExtractCorpora
 
     corpora.keys.each do |key|
       sentences = clean_sentences(corpora[key])
-      File.write("./data/#{key}_sentences_raw.txt", sentences.join("\n"))
+      File.write("./data/raw/#{key}.txt", sentences.join("\n"))
     end
   end
 

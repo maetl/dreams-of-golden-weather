@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 import sys
 import io
+import os.path
 from spacy import displacy
 from collections import Counter
 import en_core_web_sm
@@ -8,6 +9,8 @@ import en_core_web_sm
 nlp = en_core_web_sm.load()
 
 file = sys.argv[1]
+
+skip_entities = ["cardinal", "ordinal"]
 
 sentences = []
 entities = {}
@@ -19,6 +22,10 @@ with io.open(file, "r", encoding="utf-8") as f:
     found_entities = {}
     for entity in tags.ents:
       label = entity.label_.lower()
+
+      if label in skip_entities:
+        continue
+
       if not found_entities.get(label):
         found_entities[label] = 1
       else:
@@ -31,7 +38,9 @@ with io.open(file, "r", encoding="utf-8") as f:
     sentences.append(sentence)
 
 for entity, names in entities.iteritems():
-  with io.open("data/entities/" + entity + ".txt", "w", encoding="utf-8") as f:
+  entity_file = "data/entities/" + entity + ".txt"
+  mode = "a" if os.path.isfile(entity_file) else "w"
+  with io.open(entity_file, mode, encoding="utf-8") as f:
     f.write("\n".join(names))
 
 with io.open(file.replace("clean", "nlp"), "w", encoding="utf-8") as dest:

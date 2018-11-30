@@ -13,7 +13,7 @@ task :narrative do
 end
 
 task :test do
-  puts NarrativeActions.generate(:callout_to_centre)
+  puts NarrativeActions.generate(:incident_at_centre)
 end
 
 task :dither do
@@ -50,7 +50,12 @@ namespace :corpora do
 
   task :process do
     Dir["./data/clean/*.txt"].each do |file|
-      sh "python ner.py #{file}"
+      sh "python bin/ner.py #{file}"
     end
+  end
+
+  task :counts do
+    counter = CountEntities.new
+    counter.count
   end
 end
