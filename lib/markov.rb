@@ -23,13 +23,21 @@ module Markov
       build_index(lines)
     end
 
-    def generate
+    def find_start_val(start)
+      if start
+        @starting.find { |el| el.include?(start) }
+      else
+        @starting.sample
+      end
+    end
+
+    def generate(start=nil)
       begin
-        current_val = @starting.sample
+        current_val = find_start_val(start)
         next_val = @index[current_val].sample
       rescue
         # TODO: better handling of this
-        current_val = @starting.sample
+        current_val = find_start_val(start)
         next_val = @index[current_val].sample
       end
 

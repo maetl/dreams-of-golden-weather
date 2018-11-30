@@ -12,12 +12,12 @@ task :narrative do
   p narrative.generate
 end
 
-task :narrative_actions do
-  puts NarrativeActions.generate(:operator_coverup)
+task :test do
+  puts NarrativeActions.generate(:callout_to_centre)
 end
 
 task :dither do
-  img = DitheredImage.new("./content/images/templatef.png")
+  img = DitheredImage.new("./content/images/RNZAF_Strikemaster4.png")
   img.dither
   #p ChunkyPNG::Image.new(100, 100).methods
 end
@@ -37,9 +37,20 @@ task :socks do
   end
 end
 
-namespace :sentences do
+namespace :corpora do
   task :extract do
-    sentences = ExtractCorpora.new
-    sentences.extract
+    extractor = ExtractCorpora.new
+    extractor.extract
+  end
+
+  task :clean do
+    cleaner = CleanCorpora.new
+    cleaner.clean
+  end
+
+  task :process do
+    Dir["./data/clean/*.txt"].each do |file|
+      sh "python ner.py #{file}"
+    end
   end
 end
