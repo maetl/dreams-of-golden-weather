@@ -8,16 +8,26 @@ class Document
     @document = Prawn::Document.new(page_size: "A4")
     font_families.update(
       "Marvin Visions" => {
-        #normal: "fonts/MarvinVisions-Bold.otf",
         bold: "fonts/MarvinVisions-Bold.ttf"
+      },
+      "Nouveau IBM" => {
+        normal: "fonts/Nouveau-IBM.ttf"
+      },
+      "Noto Serif" => {
+        normal: "fonts/NotoSerif-SemiCondensed.ttf",
+        bold: "fonts/NotoSerif-SemiCondensedBold.ttf"
+      },
+      "Syne Extra" => {
+        normal: "fonts/Syne-Extra.ttf"
       }
     )
+    @narrative = Narrative.new
   end
 
   def render_appendix
     start_new_page(margin: 90)
 
-    font("PT Serif") do
+    font("Noto Serif") do
       move_down 290
       font_size(18) { text("Appendix") }
       move_down 12
@@ -28,7 +38,7 @@ class Document
   def render_colophon
     start_new_page(margin: 90)
 
-    font("PT Serif") do
+    font("Noto Serif") do
       move_down 384
       font_size(18) { text("Colophon") }
       move_down 12
@@ -40,7 +50,7 @@ class Document
   def render_preface
     start_new_page(margin: 72)
 
-    font("PT Serif") do
+    font("Noto Serif") do
       move_down 384
       font_size(18) { text("Preface") }
       move_down 12
@@ -51,39 +61,39 @@ class Document
   def render_copyright
     start_new_page(margin: 90)
 
-    font("PT Serif") do
+    font("Noto Serif") do
       move_down 384
       text(File.read("./content/copyright.txt"), align: :center)
     end
   end
 
   def render_half_title
-    start_new_page
+    start_new_page(margin: 72)
 
-    font("PT Serif") do
+    font("Noto Serif") do
       move_down 128
-      font_size(18) { text("Thematic Automata", align: :center) }
+      font_size(18) { text("Dreams of Golden Weather", align: :center) }
     end
   end
 
   def render_title
-    start_new_page
+    start_new_page(margin: 90)
 
-    font("PT Serif", style: :bold) do
+    font("Syne Extra") do
       move_down 128
-      font_size(36) { text("Thematic Automata", align: :center) }
+      font_size(36) { text("Dreams of Golden Weather", align: :center) }
       move_down 18
       font_size(18) { text("By Mark Rickerby", align: :center) }
     end
   end
 
   def render_body
-    font("PT Serif") do
-      @chapters.each_with_index do |chapter, i|
-        start_new_page(margin: 72)
-        text(chapter.pattern + "\n\nChapter #{i+1}", align: :center)
-        move_down 260
-        text(chapter.paragraphs, color: @swatch.dark)
+    start_new_page(margin: 72)
+
+    font("Noto Serif") do
+      @narrative.sections.each do |section|
+        text(section.text)
+        text("\n\n§\n\n", align: :center)
       end
     end
   end
@@ -91,7 +101,7 @@ class Document
   def render_contents
     start_new_page
 
-    font("PT Serif") do
+    font("Noto Serif") do
       move_down 128
       font_size(36) { text(@theme.title, align: :center) }
       move_down 18
@@ -102,7 +112,7 @@ class Document
     image("output/rule-#{@timestamp}.png", position: :center)
   end
 
-  def render_cover
+  def render_mashup
     canvas do
       float do
         transparent(1) do
@@ -130,17 +140,32 @@ class Document
     end
   end
 
+  def render_cover
+    canvas do
+      float do
+        image("content/images/trouvelot_4.png", position: :center, vposition: :center, height: bounds.height)
+      end
+
+      font("Marvin Visions", style: :bold) do
+        move_down 52
+        font_size(90) { text("Dreams of Golden Weather", leading: -38, align: :center, color: "FFFFFF") }
+      end
+
+      move_cursor_to bounds.bottom
+    end
+  end
+
   def render_sections
     render_cover
-    # render_half_title
-    # render_title
-    # render_copyright
+    render_half_title
+    render_title
+    render_copyright
     # render_preface
     # start_new_page
     # render_contents
-    # render_body
+    render_body
     # start_new_page
-    # render_appendix
+    render_appendix
     # render_colophon
   end
 end

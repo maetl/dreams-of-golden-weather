@@ -11,15 +11,17 @@ def action(label, preconditions=[], positive_effects=[], negative_effects=[])
 end
 
 InitialState = [
-  :first_computer_fault
+  :first_fault_detected
 ]
 
 GoalState = [
-  :fault_hidden_from_govt
+  :goal_tick
 ]
 
 Actions = [
-  action(:operator_coverup, [:first_computer_fault], [:fault_hidden_from_govt])
+  action(:callout_to_centre, [:first_fault_detected], [:technician_called]),
+  action(:incident_at_centre, [:technician_called], [:first_spooling_fault]),
+  action(:print_spool_mayhem, [:first_spooling_fault], [:goal_tick])
 ]
 
 class Narrative
@@ -27,7 +29,13 @@ class Narrative
     @plan = Plan.new(InitialState, GoalState)
   end
 
-  def generate
-    @plan.generate(Actions)
+  def sections
+    context = StoryEntities.map
+    plan = @plan.generate(Actions)
+
+    plan.compact.map do |action|
+      text = NarrativeActions.generate(action, context)
+      Section.new(context, text)
+    end
   end
 end

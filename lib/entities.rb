@@ -38,11 +38,11 @@ class Entities
   end
 
   def self.org
-    self.load_entities("org")
+    self.load_entities("org", "content")
   end
 
   def self.person
-    self.load_entities("person")
+    self.load_entities("person", "content")
   end
 
   def self.product
@@ -61,9 +61,9 @@ class Entities
     self.load_entities("work_of_art")
   end
 
-  def self.load_entities(type)
+  def self.load_entities(type, source="data")
     unless @@entities.key?(type)
-      @@entities[type] = File.read("./data/entities/#{type}.txt").split("\n")
+      @@entities[type] = File.read("./#{source}/entities/#{type}.txt").split("\n")
     end
     @@entities[type]
   end

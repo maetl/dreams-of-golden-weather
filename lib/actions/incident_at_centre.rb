@@ -1,4 +1,4 @@
-NarrativeActions.new(:incident_at_centre) do
+NarrativeActions.new(:incident_at_centre) do |context|
   grammar = Calyx::Grammar.new do
     start "{intro}\n\n{computing}\n\n{problem}"
     intro "{scene}. {arrival}. {called}."
@@ -33,5 +33,5 @@ NarrativeActions.new(:incident_at_centre) do
     computing_1 Corpora.computing.generate
     computing_2 Corpora.computing.generate
   end
-  grammar.generate(StoryEntities.map)
+  grammar.generate(context)
 end

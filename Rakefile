@@ -9,11 +9,11 @@ end
 
 task :narrative do
   narrative = Narrative.new
-  p narrative.generate
+  p narrative.sections
 end
 
 task :test do
-  puts NarrativeActions.generate(:incident_at_centre)
+  puts NarrativeActions.generate(:print_spool_mayhem)
 end
 
 task :dither do

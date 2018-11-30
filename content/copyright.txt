@@ -1,3 +1,11 @@
 © Mark Rickerby, 2018
 
 This is a computer-generated book produced for NaNoGenMo 2018. The code is available under the terms of the MIT license.
+
+Sourced from unpublished personal manuscripts and public domain books on Project Gutenberg. See the appendix for more information.
+
+https://maetl.net
+https://maetl.itch.io/dreams-of-golden-weather
+https://github.com/maetl/dreams-of-golden-weather
+https://github.com/NaNoGenMo/2018
+http://www.gutenberg.org/

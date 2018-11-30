@@ -9,7 +9,7 @@ class NarrativeActions
     NarrativeActions.registry(action_name, block.to_proc)
   end
 
-  def self.generate(action_name)
-    @@registry[action_name].call unless @@registry[action_name].nil?
+  def self.generate(action_name, context)
+    @@registry[action_name].call(context) unless @@registry[action_name].nil?
   end
 end
