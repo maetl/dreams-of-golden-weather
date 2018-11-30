@@ -22,21 +22,6 @@ task :dither do
   #p ChunkyPNG::Image.new(100, 100).methods
 end
 
-task :socks do
-  actions = [
-    Action.new(:put_on_left_sock, [], [Condition.new(:left_sock, :wearing)], []),
-    Action.new(:put_on_right_sock, [], [Condition.new(:right_sock, :wearing)], []),
-    Action.new(:put_on_left_shoe, [Condition.new(:left_sock, :wearing)], [Condition.new(:left_shoe, :wearing)], []),
-    Action.new(:put_on_right_shoe, [Condition.new(:right_sock, :wearing)], [Condition.new(:right_shoe, :wearing)], [])
-  ]
-
-  plan = Plan.new([], [Condition.new(:left_shoe, :wearing), Condition.new(:right_shoe, :wearing)])
-
-  plan.generate(actions).each do |action|
-    puts NarrativeActions.generate(action)
-  end
-end
-
 namespace :corpora do
   task :extract do
     extractor = ExtractCorpora.new
