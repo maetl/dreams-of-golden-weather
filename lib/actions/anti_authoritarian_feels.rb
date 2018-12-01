@@ -1,6 +1,6 @@
 NarrativeActions.new(:anti_authoritarian_feels) do |context|
   paragraphs = []
-  paragraph_count = 64
+  paragraph_count = 124
   sentence_count = lambda { rand(1..7) }
 
   paragraph_count.times do
@@ -14,7 +14,7 @@ NarrativeActions.new(:anti_authoritarian_feels) do |context|
       when 3
         paragraph << Corpora.computing_oeuvre.generate
       when 4
-        paragraph << Corpora.memoir.generate
+        paragraph << Corpora.memoir_oeuvre.generate
       end
     end
     paragraphs << paragraph.join("\s")

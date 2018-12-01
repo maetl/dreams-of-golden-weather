@@ -47,6 +47,12 @@ module Corpora
     self.load_markov_text("memoir_ephemera")
   end
 
+  def self.memoir_oeuvre
+    collection = self.load_sentences("memoir").concat(self.load_sentences("oeuvre"))
+    @@data["memoir_oeuvre"] = collection
+    self.load_markov_text("memoir_oeuvre")
+  end
+
   def self.muturangi_pulp
     collection = self.load_sentences("muturangi").concat(self.load_sentences("pulp"))
     @@data["muturangi_pulp"] = collection
