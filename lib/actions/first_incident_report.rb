@@ -1,4 +1,4 @@
-NarrativeActions.new(:callout_to_centre) do |context|
+NarrativeActions.new(:first_incident_report) do |context|
   grammar = Calyx::Grammar.new do
     start "{intro}\n\n{dialogue}"
     intro "{m_sentence} {m_sentence} {m_sentence}", "{m_sentence} {m_sentence}"

@@ -34,7 +34,7 @@ class Entities
   end
 
   def self.norp
-    self.load_entities("norp")
+    self.load_entities("norp", "content")
   end
 
   def self.org

@@ -22,12 +22,18 @@ Actions = [
   action(:callout_to_centre, [:first_fault_detected], [:technician_called]),
   action(:incident_at_centre, [:technician_called], [:first_spooling_fault]),
   action(:print_spool_mayhem, [:first_spooling_fault], [:first_spool_printed]),
-  action(:first_incident_report, [:first_spool_printed], [:goal_tick])
+  action(:first_incident_report, [:first_spool_printed], [:first_incident_reported]),
+  action(:government_warning, [:first_incident_reported], [:first_warning_given]),
+  action(:anti_authoritarian_feels, [:first_warning_given], [:goal_tick])
 ]
 
 class Narrative
   def initialize
     @plan = Plan.new(InitialState, GoalState)
+  end
+
+  def plan
+    @plan.generate(Actions)
   end
 
   def sections

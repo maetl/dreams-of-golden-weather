@@ -12,10 +12,9 @@ NarrativeActions.new(:callout_to_centre) do |context|
     intro5 Corpora.computing.generate
     intro6 "The {computer} computer {crashed} again."
     crashed "is offline", "has crashed", "has malfunctioned"
-    body "{body1}\n\n{body2}\n\n{body3}"
-    body1 (3..6).to_a.map { Corpora.muturangi.generate }.join("\s")
-    body2 (4..10).to_a.map { Corpora.computing.generate }.join("\s")
-    body3 (2..4).to_a.map { Corpora.muturangi.generate }.join("\s")
+    body "{body1}\n\n{body2}"
+    body1 (4..10).to_a.map { Corpora.computing.generate }.join("\s")
+    body2 (2..4).to_a.map { Corpora.muturangi.generate }.join("\s")
     outro "{outro1} "
     outro1 "What {computer} does is secret. {technician} isn’t supposed to know. He’s {seen} {code_that} {seen_list}. {lately}. {non_explanation}"
     seen "seen", "debugged", "viewed"

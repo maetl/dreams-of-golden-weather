@@ -7,13 +7,14 @@ task :generate do
   book.generate
 end
 
-task :narrative do
+task :plan do
   narrative = Narrative.new
-  p narrative.sections
+  p narrative.plan
 end
 
-task :test do
-  puts NarrativeActions.generate(:print_spool_mayhem)
+task :action do
+  context = StoryEntities.map
+  puts NarrativeActions.generate(:print_spool_mayhem, context).text
 end
 
 task :dither do

@@ -1,6 +1,11 @@
 module Corpora
   @@data = {}
   @@text = {}
+  @@ascii = []
+
+  def self.ascii
+    self.load_ascii_text
+  end
 
   def self.pulp
     self.load_markov_text("pulp")
@@ -36,6 +41,12 @@ module Corpora
     self.load_markov_text("computing_oeuvre")
   end
 
+  def self.memoir_ephemera
+    collection = self.load_sentences("memoir").concat(self.load_sentences("ephemera"))
+    @@data["memoir_ephemera"] = collection
+    self.load_markov_text("memoir_ephemera")
+  end
+
   def self.muturangi_pulp
     collection = self.load_sentences("muturangi").concat(self.load_sentences("pulp"))
     @@data["muturangi_pulp"] = collection
@@ -54,5 +65,22 @@ module Corpora
       @@text[corpus] = Markov::Text.new(self.load_sentences(corpus), splitter: :words)
     end
     @@text[corpus]
+  end
+
+  def self.load_markov_text_depth(label, data, depth)
+    unless @@text.key?(label)
+      @@text[label] = Markov::Text.new(data, splitter: :words, depth: depth)
+    end
+    @@text[label]
+  end
+
+  def self.load_ascii_text
+    if @@ascii.empty?
+      Dir["./content/ascii/*.txt"].each do |file|
+        @@ascii << File.read(file)
+      end
+    end
+
+    @@ascii
   end
 end
