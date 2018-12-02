@@ -8,7 +8,13 @@ This is a computer-generated book produced for [NaNoGenMo2018](https://github.co
 
 ## Tools
 
-- [Ruby 2.5](https://ruby-lang.org/)
+- [Ruby 2.6](https://ruby-lang.org/)
+- [spaCy](https://spacy.io/)
+- [Guten-gutter](https://github.com/catseye/Guten-gutter)
+- [Punkt Segmenter](https://rubygems.org/gems/punkt-segmenter)
+- [Calyx](http://github.com/maetl/calyx)
+- [Prawn](https://github.com/prawnpdf/prawn)
+- [chunky_png](https://rubygems.org/gems/chunky_png)
 
 ## License
 
