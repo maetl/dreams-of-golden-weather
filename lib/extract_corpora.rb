@@ -6,7 +6,7 @@ class ExtractCorpora
       corpus = File.basename(File.dirname(source))
       corpora[corpus] = [] unless corpora.key?(corpus)
 
-      text = File.read(source)
+      text = File.read(source, :encoding => 'utf-8')
       tokenizer = Punkt::SentenceTokenizer.new(text)
       result = tokenizer.sentences_from_text(text, :output => :sentences_text, :realign_boundaries => true)
 
@@ -23,6 +23,8 @@ class ExtractCorpora
     sentences.map do |line|
       line.gsub(/(\w|,)\n/, "\\1\s")
           .gsub("\"", "")
+          .gsub("{", "[")
+          .gsub("}", "]")
           .strip
     end.reject do |line|
       /^[A-Z0-9\s\.]+$/.match(line)

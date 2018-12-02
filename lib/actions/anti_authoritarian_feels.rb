@@ -1,28 +1,33 @@
 NarrativeActions.new(:anti_authoritarian_feels) do |context|
   paragraphs = []
-  paragraph_count = 124
+  paragraph_count = 216
   sentence_count = lambda { rand(1..7) }
 
-  paragraph_count.times do
+  memoir_ephemera = Corpora.memoir_ephemera
+  memoir = Corpora.memoir
+  computing_oeuvre = Corpora.computing_oeuvre
+  memoir_oeuvre = Corpora.memoir_oeuvre
+
+  grammar = Calyx::Grammar.new do
+    start :feels
+  end
+
+  paragraph_count.times do |i|
     paragraph = []
     sentence_count.call.times do
       case rand(1..4)
       when 1
-        paragraph << Corpora.memoir_ephemera.generate
+        paragraph << memoir_ephemera.generate
       when 2
-        paragraph << Corpora.memoir.generate
+        paragraph << memoir.generate
       when 3
-        paragraph << Corpora.computing_oeuvre.generate
+        paragraph << computing_oeuvre.generate
       when 4
-        paragraph << Corpora.memoir_oeuvre.generate
+        paragraph << memoir_oeuvre.generate
       end
     end
-    paragraphs << paragraph.join("\s")
+    paragraphs << grammar.generate(context.merge(feels: paragraph.join("\s")))
   end
 
-  grammar = Calyx::Grammar.new do
-    start paragraphs.join("\n\n")
-  end
-
-  Section.new(context, grammar.generate(context), :anarchist)
+  Section.new(context, paragraphs.join("\n\n"), :anarchist)
 end
