@@ -18,9 +18,8 @@ task :action do
 end
 
 task :dither do
-  img = DitheredImage.new("./content/images/RNZAF_Strikemaster4.png")
+  img = DitheredImage.new("./content/images/900px-Auckland_Medical_School_Brutalist_II.png")
   img.dither
-  #p ChunkyPNG::Image.new(100, 100).methods
 end
 
 namespace :corpora do

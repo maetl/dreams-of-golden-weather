@@ -1,4 +1,17 @@
 class DitheredImage
+  Grey12 = ChunkyPNG::Color.from_hsv(0, 0, 0.12)
+  Grey24 = ChunkyPNG::Color.from_hsv(0, 0, 0.24)
+  Grey36 = ChunkyPNG::Color.from_hsv(0, 0, 0.36)
+  Grey48 = ChunkyPNG::Color.from_hsv(0, 0, 0.48)
+  Grey60 = ChunkyPNG::Color.from_hsv(0, 0, 0.60)
+  Grey72 = ChunkyPNG::Color.from_hsv(0, 0, 0.72)
+  Grey84 = ChunkyPNG::Color.from_hsv(0, 0, 0.84)
+  Grey96 = ChunkyPNG::Color.from_hsv(0, 0, 0.96)
+
+  SWATCH = [
+    Grey12, Grey24, Grey36, Grey48, Grey60, Grey72, Grey84, Grey96
+  ]
+
   def initialize(path)
     @rgb_img = ChunkyPNG::Image.from_file(path)
     @bit_img = ChunkyPNG::Image.new(@rgb_img.width, @rgb_img.height)
@@ -44,28 +57,22 @@ class DitheredImage
   end
 
   def resample_teint_8(px)
-    grey12 = ChunkyPNG::Color.from_hsv(0, 0, 0.12)
-    grey24 = ChunkyPNG::Color.from_hsv(0, 0, 0.24)
-    grey36 = ChunkyPNG::Color.from_hsv(0, 0, 0.36)
-    grey48 = ChunkyPNG::Color.from_hsv(0, 0, 0.48)
-    grey60 = ChunkyPNG::Color.from_hsv(0, 0, 0.60)
-    grey72 = ChunkyPNG::Color.from_hsv(0, 0, 0.72)
-    grey84 = ChunkyPNG::Color.from_hsv(0, 0, 0.84)
-    grey96 = ChunkyPNG::Color.from_hsv(0, 0, 0.96)
-
-    swatch = [
-      grey12, grey24, grey36, grey48, grey60, grey72, grey84, grey96
-    ]
-
     teint = ChunkyPNG::Color.grayscale_teint(px)
 
     stop = ((teint / 255.0) * 7).round
 
-    col = swatch[stop]
+    col = SWATCH[stop]
 
     if col.nil? then raise "error: #{px}, #{stop}"; end
 
     col
+  end
+
+  #FILL_CHARS = ['@','#','$','=','*','!',';',':','~','-',',','.',' ']
+  FILL_CHARS = ["@", "#", "*", "!", ":", "-", ".", " "]
+
+  def map_fill_char(px)
+    FILL_CHARS[SWATCH.find_index(px)]
   end
 
   def dither
@@ -96,6 +103,18 @@ class DitheredImage
       end
     end
 
-    canvas.save("dithered-#{Time.new.to_i}.png")
+    canvas = canvas.resize(canvas.width / 10, canvas.height / 10)
+    canvas.save("resized-dithered-#{Time.new.to_i}.png")
+
+    txt = []
+
+    0.upto(canvas.height-1) do |y|
+      txt[y] = []
+      0.upto(canvas.width-1) do |x|
+        txt[y][x] = map_fill_char(canvas[x, y])
+      end
+    end
+
+    puts txt.map { |tx| tx.join }.join("\n")
   end
 end
